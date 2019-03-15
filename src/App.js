@@ -45,27 +45,34 @@ class App extends Component {
     switch (value) {
       case 0:
         searchTerm = 'healthcare'
+        getAllTweets(searchTerm)
+          .then((data) => {
+            this.setState({tweets: data.tweets, searchTerm, value})
+          })
+          .catch((err) => console.warn(err))
         break;
       case 1:
         searchTerm = 'nasa'
+        getAllTweets(searchTerm)
+          .then((data) => {
+            this.setState({tweets: data.tweets, searchTerm, value})
+          })
+          .catch((err) => console.warn(err))
         break;
       case 2:
         searchTerm = 'open source'
+        getAllTweets(searchTerm)
+          .then((data) => {
+            this.setState({tweets: data.tweets, searchTerm, value})
+          })
+          .catch((err) => console.warn(err))
         break;
       default:
         searchTerm = this.state.searchTerm
+        this.setState({ value, searchTerm });
         break;
     }
-    this.setState({ value, searchTerm });
   };
-
-  componentDidUpdate(){
-    getAllTweets(this.state.searchTerm)
-      .then((data) => {
-        this.setState({tweets: data.tweets})
-      })
-      .catch((err) => console.warn(err))
-  }
 
   componentDidMount() {
     getAllTweets(this.state.searchTerm)
@@ -76,6 +83,7 @@ class App extends Component {
   }
 
   renderCardComponent(tweet) {
+    var date = new Date(tweet.created_at)
     return (
       <Card>
         <CardContent>
@@ -84,6 +92,9 @@ class App extends Component {
           </Typography>
           <Typography color="textSecondary">
             by {tweet.screen_name}
+          </Typography>
+          <Typography color="textSecondary">
+            {date.toLocaleTimeString()}
           </Typography>
         </CardContent>
       </Card>
