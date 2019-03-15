@@ -5,6 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 import './App.css';
 import { getAllTweets } from './utils/api';
@@ -73,10 +75,25 @@ class App extends Component {
       .catch((err) => console.warn(err))
   }
 
+  renderCardComponent(tweet) {
+    return (
+      <Card>
+        <CardContent>
+          <Typography component="p">
+            {tweet.full_text}
+          </Typography>
+          <Typography color="textSecondary">
+            by {tweet.screen_name}
+          </Typography>
+        </CardContent>
+      </Card>
+    )
+  }
+
   render() {
     const tweets = this.state.tweets;
     const listItems = tweets.map((tweet) =>
-      <li key={tweet.id}>{tweet.full_text}</li>
+      this.renderCardComponent(tweet)
     );
     const { value } = this.state;
 
