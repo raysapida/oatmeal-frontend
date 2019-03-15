@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 var api = axios.create({
-  baseURL: "http://localhost:3000/api"
+  baseURL: "https://tweets-service.herokuapp.com/api"
 });
 
 export const getAllTweets = async (searchTerm) => {
